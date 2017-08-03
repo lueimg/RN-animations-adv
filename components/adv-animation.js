@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, AppRegistry, Image, ScrollView, Dimensions, Animated } from 'react-native';
-
+import styled from 'styled-components/native';
 import Moment from './moment.js';
 
 const {width, height} = Dimensions.get("window");
@@ -12,6 +12,20 @@ const Items = [
   { image: require('../images/drink3.jpg'), title: "Mule" },
   { image: require('../images/drink4.jpg'), title: "Strawberry Daiquiri" }
 ];
+
+const Separator = styled(View)`
+    background-color: #000;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+`;
+const getSeparator = (i) => {
+    return <Separator 
+                key={i}
+                style={{left: (i-1) * width - 2.5}}
+            />
+}
 
 const getInterpolate = (animatedScroll, i) => {
   const inputRange = [
@@ -62,6 +76,9 @@ export default class Animation extends Component {
                 translateX={getInterpolate(this.state.animatedScroll, i)}                
                 {...item}
               />)
+          })}
+          {Array.apply( null, {length: Items.length + 1 }).map((_, i) => {
+            return getSeparator(i)
           })}
         </ScrollView>
       </View>
