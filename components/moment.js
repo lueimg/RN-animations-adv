@@ -28,13 +28,22 @@ const TextEl = styled(Text)`
     text-align: center;
 `;
 
+
+
 export default class Moment extends Component {
   render() {
+
+    const animatedStyle = {
+        transform: [
+            { translateX: this.props.translateX }
+        ]
+    }
+
     return (
       <Container>
         <Animated.Image 
             source={this.props.image}
-            style={styles.image}
+            style={[styles.image, animatedStyle]}
             resizeMode="cover"
         />
         <TitleWrap style={StyleSheet.absoluteFill}>
