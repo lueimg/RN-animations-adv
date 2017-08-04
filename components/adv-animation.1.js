@@ -21,7 +21,10 @@ const Separator = styled(View)`
     width: 5px;
 `;
 const getSeparator = (i) => {
-    return <Separator key={i} style={{left: (i-1) * width - 2.5}} />
+    return <Separator 
+                key={i}
+                style={{left: (i-1) * width - 2.5}}
+            />
 }
 
 const getInterpolate = (animatedScroll, i) => {
@@ -42,13 +45,8 @@ export default class Animation extends Component {
   constructor(props, context) {
     super(props, context);
      this.state = {
-       animatedScroll: new Animated.Value(0),
-       scrollEnabled: true
+       animatedScroll: new Animated.Value(0)
     }
-  }
-
-  handleFocus = (focused) => {
-    this.setState({scrollEnabled: !focused})
   }
   
 
@@ -59,7 +57,6 @@ export default class Animation extends Component {
           pagingEnabled
           horizontal
           scrollEventThrottle={16}
-          scrollEnabled={this.state.scrollEnabled}
           onScroll={
             Animated.event([
               {
@@ -72,15 +69,14 @@ export default class Animation extends Component {
             ])
           }
         >
-          {Items.map((item, i) => ( 
+          {Items.map((item, i) => {
+            return( 
               <Moment 
                 key={i}
                 translateX={getInterpolate(this.state.animatedScroll, i)}                
                 {...item}
-                onFocus={this.handleFocus}
-                focused={!this.state.scrollEnabled}
               />)
-          )}
+          })}
           {Array.apply( null, {length: Items.length + 1 }).map((_, i) => {
             return getSeparator(i)
           })}
