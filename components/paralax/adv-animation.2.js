@@ -25,11 +25,7 @@ const getSeparator = (i) => {
 }
 
 const getInterpolate = (animatedScroll, i) => {
-  const inputRange = [
-    i - 1 * width,
-    i * width,
-    (i + 1) * width
-  ]
+  const inputRange = [ i - 1 * width, i * width, (i + 1) * width  ]
   const outputRange = i === 0 ? [0,0,150] : [-300, 0, 150];
   return animatedScroll.interpolate({
     inputRange,
